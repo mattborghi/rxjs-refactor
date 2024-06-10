@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 
-    <title>RxJS Best Practices</title>
+    <title>RxJS - Best Practices</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <link rel="stylesheet" href="dist/reset.css" />
@@ -16,25 +16,269 @@
 
     <!-- Theme used for syntax highlighted code -->
     <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+
+    <style>
+      blockquote > b {
+        color: lightgray;
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
-        <section data-markdown>
-          <textarea data-template>
-          ## Table of Contents 
-		  
-		  1. What's RxJS? 
-		  2. Reactive vs Declarative Programming 
-		  3. RxJS concepts 
-		  4. RxJS best practices 
-		  5. Our work 
-		  6. Refactoring code using RxJs
-		</textarea
-          >
+        <section
+          style="height: 100%"
+          data-menu-title="RxJS Best Practices"
+          data-background-image="images/background.png"
+        >
+          <h2 style="bottom: 20%; right: 0; position: absolute">
+            RXJS BEST PRACTICES
+          </h2>
         </section>
-        <section>Slide 1</section>
-        <section>Slide 2</section>
+        <section data-background-image="images/background2.png">
+          <h3>Table of Contents</h3>
+
+          <ul>
+            <li>What's RxJS?</li>
+            <li>Reactive vs Declarative Programming</li>
+            <li>RxJS concepts</li>
+            <li>RxJS best practices</li>
+            <li>Our work</li>
+          </ul>
+        </section>
+        <section data-background-image="images/background2.png">
+          <h3>What's RxJS?</h3>
+          <blockquote cite="https://rxjs.dev/">
+            RxJS is a library for
+            <b>reactive programming</b> using <b>Observables</b>, to make it
+            easier to compose asynchronous or callback-based code.
+          </blockquote>
+        </section>
+        <section data-background-image="images/background2.png">
+          <section>
+            <h3>Imperative vs Declarative Programming</h3>
+            <table>
+              <tr>
+                <th>Imperative</th>
+                <th>Declarative</th>
+              </tr>
+              <tr>
+                <td>How to do things.</td>
+                <td>What to do.</td>
+              </tr>
+              <tr>
+                <td>
+                  <pre><code>for (
+	let i = 0; 
+	i < arr.length; 
+	i++
+) { ... }</code></pre>
+                </td>
+                <td>
+                  <pre><code>arr.sort()</code></pre>
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Reactive Programming</h3>
+            <blockquote>
+              Reactive programming utilizes data streams, which are continuous
+              flows of information. You declare your interest in specific parts
+              of the stream, and the system automatically reacts and delivers
+              the data or performs actions based on changes.
+            </blockquote>
+          </section>
+          <section>
+            <h3>Reactive Programming</h3>
+            <blockquote>
+              Within these streams, you use declarative operators to express how
+              you want to manipulate the data. These operators transform the
+              data without needing to write detailed loops or conditional
+              statements.
+            </blockquote>
+          </section>
+          <section>
+            <h3>Reactive Programming</h3>
+            <blockquote>
+              Declarative programming defines the overall goal, and reactive
+              programming provides the mechanism to handle the ever-changing
+              data and automatically react to those changes based on your
+              declared goals. statements.
+            </blockquote>
+          </section>
+        </section>
+        <section data-background-image="images/background2.png">
+          <section>
+            <h3>RxJS concepts</h3>
+          </section>
+          <section>
+            <h4>Observables and Subscriptions - Newspaper Delivery Analogy</h4>
+            <ul style="font-size: medium">
+              <li>
+                Imagine an Observable as a newspaper delivery service. It
+                constantly publishes new editions (data emissions).
+              </li>
+              <li>
+                You, the subscriber, are like someone who signs up for a
+                subscription. You express interest in receiving the newspaper
+                (data).
+              </li>
+              <li>
+                When you subscribe, you're essentially telling the delivery
+                service (Observable) to bring you the papers whenever a new
+                edition comes out (data is emitted).
+              </li>
+              <li>
+                You can unsubscribe anytime you're no longer interested (you can
+                stop receiving deliveries).
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Operators - Recipe Book Analogy</h4>
+            <ul style="font-size: medium">
+              <li>Think of operators as a recipe book for your data stream.</li>
+              <li>
+                Each operator is like a recipe that takes the incoming data
+                (ingredients) and transforms it into something new (the cooked
+                dish).
+              </li>
+              <li>
+                For example, a map operator is like adding spices to your data,
+                a filter operator is like picking specific ingredients, and a
+                concat operator is like combining two recipes (data streams)
+                into one meal (final data output).
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Subjects - Town Crier Analogy</h4>
+            <ul style="font-size: medium">
+              <li>
+                Imagine a Subject as a town crier who broadcasts important
+                announcements (data emissions).
+              </li>
+              <li>
+                Multiple subscribers (townspeople) can listen to the
+                announcements (data).
+              </li>
+              <li>
+                Unlike Observables which typically have a single source,
+                Subjects allow you to actively emit data yourself, just like the
+                town crier initiating the announcements.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Schedulers - Traffic Light Analogy</h4>
+            <ul style="font-size: medium">
+              <li>
+                Schedulers are like traffic lights that control the flow of data
+                emissions in your RxJS streams.
+              </li>
+              <li>
+                You can use schedulers to manage the timing of data delivery,
+                ensuring a smooth flow and preventing overwhelming situations,
+                just like traffic lights control the flow of cars to avoid
+                congestion.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Cold vs. Hot Observables - Pre-Recorded vs. Live TV Analogy</h4>
+            <ul style="font-size: medium">
+              <li>
+                Cold Observables are like pre-recorded shows. When you
+                subscribe, you get a fresh playback from the beginning (data
+                emissions start anew).
+              </li>
+              <li>
+                Hot Observables are like live TV. When you subscribe, you join
+                an ongoing stream and receive data from that point onwards (you
+                might miss some initial emissions).
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section data-background-image="images/background2.png">
+          <section>
+            <h3>RxJS best practices</h3>
+          </section>
+          <section>
+            <h4>Return cold observables from services</h4>
+            <ul style="font-size: medium">
+              <li>
+                <b>Predictable and Repeatable</b>: Cold observables act like a
+                fresh start each time you subscribe. This ensures you always get
+                the latest data, regardless of previous subscriptions. Imagine a
+                cold observable as a brand new roll of film in a camera. Every
+                time you take a picture (subscribe), you capture a fresh image
+                (data emission) at that specific moment.
+              </li>
+
+              <li>
+                <b>Independent Streams</b>: Each subscription to a cold
+                observable creates a completely independent data stream. This
+                means multiple components can subscribe to the same service
+                without interfering with each other. Think of it like multiple
+                movie theaters showing the same film reel (observable)
+                simultaneously. Each theater has its own projector and audience
+                (subscriptions) experiencing the movie independently.
+              </li>
+
+              <li>
+                <b>Error Handling</b>: Cold observables allow for better error
+                handling because errors are emitted on a per-subscription basis.
+                You can handle errors specifically for each component that
+                subscribes. Imagine a cold observable as a recipe (data). Each
+                time you cook the recipe (subscribe), there's a chance of a new
+                ingredient being spoiled (error). You can check for freshness
+                (error handling) independently for each time you cook the
+                recipe.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Avoid observables inside subscription handlers</h4>
+            <ul style="font-size: medium">
+              <li>
+                Moving values out of RxJS scope into imperative JS scope, only
+                to put them back into RxJS scope is usually brittle.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h4>Try to keep operator functions pure</h4>
+            <p style="font-size: medium">
+              An opeartor function will be pure if it doesn't mutate their
+              input, read outside data, mutate outside and/or have other
+              side-effects.
+              <br /><br />
+              This can lead to problems like dropped errors, subscription leaks
+              and race conditions.
+            </p>
+            <pre><code data-line-numbers>currentValue: number;
+this.currentValueObs = this.someService.someObservable.pipe(
+	tap(value => {
+		this.currentValue = value;
+	});
+);
+</code>
+		</pre>
+            <p style="font-size: medium">
+              Instead, we can just use currentValueObs via functions like
+              <code>.subscribe()</code> and <code>| async</code>.
+            </p>
+          </section>
+        </section>
+        <section data-background-image="images/background2.png">
+          <h3>Our work</h3>
+          <p style="font-size: medium">
+            Refactor logic that uses RxJS using best code practices.
+          </p>
+          <img src="images/work.png" alt="Our current work as a diagram" />
+        </section>
       </div>
     </div>
 
